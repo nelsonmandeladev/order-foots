@@ -2,6 +2,7 @@ import {View, Text, Button, Alert} from 'react-native'
 import {Link, useRouter} from "expo-router";
 import {CustomButton, CustomInput} from "@/components/form";
 import {useState} from "react";
+import {signIn} from "@/libs";
 
 export default function SignIn() {
     const router = useRouter();
@@ -15,16 +16,16 @@ export default function SignIn() {
 
         setIsSubmitting(true)
 
-        // try {
-        //     await signIn({ email, password });
-        //
-        //     router.replace('/');
-        // } catch(error: any) {
-        //     Alert.alert('Error', error.message);
-        //     Sentry.captureEvent(error);
-        // } finally {
-        //     setIsSubmitting(false);
-        // }
+        try {
+            await signIn({ email, password });
+
+            router.replace('/');
+        } catch(error: any) {
+            Alert.alert('Error', error.message);
+            // Sentry.captureEvent(error);
+        } finally {
+            setIsSubmitting(false);
+        }
     }
     return (
         <View className="gap-10 bg-white rounded-lg p-5 mt-5">

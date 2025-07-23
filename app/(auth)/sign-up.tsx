@@ -2,6 +2,7 @@ import {Alert, Text, View} from "react-native";
 import {Link, useRouter} from "expo-router";
 import {CustomButton, CustomInput} from "@/components/form";
 import {useState} from "react";
+import {createUserAccount} from "@/libs";
 
 export default function SignUp() {
     const router = useRouter();
@@ -15,15 +16,15 @@ export default function SignUp() {
 
         setIsSubmitting(true)
 
-        // try {
-        //     await createUser({ email,  password,  name });
-        //
-        //     router.replace('/');
-        // } catch(error: any) {
-        //     Alert.alert('Error', error.message);
-        // } finally {
-        //     setIsSubmitting(false);
-        // }
+        try {
+            await createUserAccount({ email,  password,  name });
+
+            router.replace('/');
+        } catch(error: any) {
+            Alert.alert('Error', error.message);
+        } finally {
+            setIsSubmitting(false);
+        }
     }
     return (
         <View className="gap-8 bg-white rounded-lg p-5 mt-2.5">
